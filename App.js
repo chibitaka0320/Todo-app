@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -6,9 +7,11 @@ import { Provider } from 'react-redux';
 import { PersistGate } from "redux-persist/integration/react";
 
 
+
 // Screen
 import { HomeScreen } from "./src/screen/HomeScreen";
 import { SettingScreen } from "./src/screen/SettingScreen";
+import { TabEditScreen } from "./src/screen/TabEditScreen";
 import { HomeHeaderRight } from "./src/components/HomeHeader";
 import { AddListScreen } from './src/screen/AddListScreen';
 
@@ -38,6 +41,7 @@ export default function App() {
               }}
             />
             <Stack.Screen name="Setting" component={SettingScreen} />
+            <Stack.Screen name="TabEdit" component={TabEditScreen} />
             <Stack.Screen name="AddList" component={AddListScreen}
               options={{
                 presentation: "modal",

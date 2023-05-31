@@ -1,29 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
-    items: []
+    items: [{
+        listName: "やること",
+        todos: [{ id: 0, text: "英語", click: true }, { id: 1, text: "プログラミング", click: false }]
+    }]
 }
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         addTodo(state, action) {
-            const newClip = action.payload;
-            const lastId = state.items.length > 0 ? state.items[state.items.length - 1].id : 0;
+            const index = action.payload.index;
+            const newClip = action.payload.todo;
+            const lastId = state.items[index].todos.length > 0 ? state.items[index].todos[state.items[index].todos.length - 1].id : 0;
             const newId = lastId + 1;
             newClip.id = newId;
-            state.items.push(newClip);
+            state.items[index].todos.push(newClip);
         },
         removeTodo: (state, action) => {
-            const todoId = action.payload;
-            state.items = state.items.filter(item => item.id !== todoId);
+            const listIndex = action.payload.index;
+            const todoId = action.payload.id;
+            state.items[listIndex].todos = state.items[listIndex].todos.filter(item => item.id !== todoId);
         },
         toggleClick: (state, action) => {
-            const todoId = action.payload;
-            const index = state.items.findIndex(item => item.id === todoId);
-            state.items[index].click = !state.items[index].click;
+            const listIndex = action.payload.index;
+            const todoId = action.payload.id;
+            const index = state.items[listIndex].todos.findIndex(item => item.id === todoId);
+            state.items[listIndex].todos[index].click = !state.items[listIndex].todos[index].click;
+        },
+        addList(state, action) {
+            const newList = action.payload;
+            state.items.push(newList);
+        },
+        removeList(state, action) {
+            const index = action.payload;
+            state.items.splice(index, 1);
+            console.log(state.items);
         }
     },
 })
-export const { addTodo, removeTodo, toggleClick } = userSlice.actions;
+export const { addTodo, removeTodo, toggleClick, addList, removeList } = userSlice.actions;
 export default userSlice.reducer
 

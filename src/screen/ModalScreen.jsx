@@ -13,7 +13,7 @@ import { addTodo } from "../store/userSlice";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export const ModalScreen = ({ toggle }) => {
+export const ModalScreen = ({ index, toggle }) => {
   const [addText, setAddText] = useState("");
 
   const dispatch = useDispatch();
@@ -23,7 +23,12 @@ export const ModalScreen = ({ toggle }) => {
     if (addText === "") {
       toggle();
     } else {
-      dispatch(addTodo({ id: todos.length, text: addText, click: false }));
+      dispatch(
+        addTodo({
+          index: index,
+          todo: { id: todos.length, text: addText, click: false },
+        })
+      );
       setAddText("");
       toggle();
     }

@@ -15,9 +15,10 @@ import { ModalScreen } from "./ModalScreen";
 import { TodoList } from "../components/TodoList";
 import { useSelector } from "react-redux";
 
-export const InitScreen = () => {
+export const TodoScreen = (props) => {
   const [visible, setVisible] = useState(false);
-  const todos = useSelector((state) => state.user.items);
+  const { index } = props.route.params;
+  const todos = useSelector((state) => state.user.items[index].todos);
 
   const toggle = () => {
     setVisible(!visible);
@@ -28,7 +29,7 @@ export const InitScreen = () => {
       <ScrollView>
         <FlatList
           data={todos}
-          renderItem={({ item }) => <TodoList item={item} />}
+          renderItem={({ item }) => <TodoList item={item} index={index} />}
           keyExtractor={(item) => item.id.toString()}
           style={styles.flatlist}
           scrollEnabled={false}
@@ -38,7 +39,7 @@ export const InitScreen = () => {
         <AntDesign name="plus" size={25} color="white" />
       </TouchableOpacity>
       <Modal visible={visible} transparent>
-        <ModalScreen toggle={toggle} />
+        <ModalScreen toggle={toggle} index={index} />
       </Modal>
     </View>
   );

@@ -16,6 +16,12 @@ export const HomeHeaderRight = () => {
       >
         <AntDesign name="setting" size={25} style={{ color: "white" }} />
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("TabEdit")}
+        style={styles.icon}
+      >
+        <AntDesign name="ellipsis1" size={25} style={{ color: "white" }} />
+      </TouchableOpacity>
     </View>
   );
 };

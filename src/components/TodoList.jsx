@@ -4,7 +4,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { useDispatch } from "react-redux";
 import { removeTodo, toggleClick } from "../store/userSlice";
 
-export const TodoList = ({ item }) => {
+export const TodoList = ({ item, index }) => {
   const { text } = item;
   const { id } = item;
   const { click } = item;
@@ -13,11 +13,11 @@ export const TodoList = ({ item }) => {
   const iconName = click ? "check-circle" : "circle";
 
   const remove = () => {
-    dispatch(removeTodo(id));
+    dispatch(removeTodo({ index: index, id: id }));
   };
 
   const check = () => {
-    dispatch(toggleClick(id));
+    dispatch(toggleClick({ index: index, id: id }));
   };
 
   return (
