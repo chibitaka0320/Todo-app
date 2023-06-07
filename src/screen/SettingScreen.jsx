@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 
 export const SettingScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>SettingScreen</Text>
+      <Text>Setting Screen</Text>
     </View>
   );
 };

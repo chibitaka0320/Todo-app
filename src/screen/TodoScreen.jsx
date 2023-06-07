@@ -16,33 +16,29 @@ import { TodoList } from "../components/TodoList";
 import { useSelector } from "react-redux";
 
 export const TodoScreen = (props) => {
-  const [visible, setVisible] = useState(false);
-  const { index } = props.route.params;
-  const todos = useSelector((state) => state.user.items[index].todos);
+  const { itemIndex } = props.route.params;
+  const todos = useSelector((state) => state.user.items[itemIndex].todos);
 
-  const toggle = () => {
-    setVisible(!visible);
-  };
-
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <FlatList
-          data={todos}
-          renderItem={({ item }) => <TodoList item={item} index={index} />}
-          keyExtractor={(item) => item.id.toString()}
-          style={styles.flatlist}
-          scrollEnabled={false}
-        />
+  if (todos.length > 0) {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.flatlist}>
+          {todos.map((item, index) => (
+            <View key={index}>
+              <TodoList item={item} index={itemIndex} />
+              {index !== todos.length - 1 && <View style={styles.separator} />}
+            </View>
+          ))}
+        </View>
       </ScrollView>
-      <TouchableOpacity style={styles.plus} onPress={toggle}>
-        <AntDesign name="plus" size={25} color="white" />
-      </TouchableOpacity>
-      <Modal visible={visible} transparent>
-        <ModalScreen toggle={toggle} index={index} />
-      </Modal>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View style={styles.none}>
+        <Text style={{ fontSize: 16 }}>Todoはありません</Text>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -51,7 +47,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   flatlist: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     backgroundColor: "white",
     borderRadius: 15,
   },
@@ -65,5 +62,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 60,
     right: 20,
+  },
+  none: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: "gray",
   },
 });

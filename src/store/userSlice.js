@@ -22,6 +22,10 @@ const userSlice = createSlice({
             const todoId = action.payload.id;
             state.items[listIndex].todos = state.items[listIndex].todos.filter(item => item.id !== todoId);
         },
+        blukRemoveTodo: (state, action) => {
+            const index = action.payload;
+            state.items[index].todos = state.items[index].todos.filter(item => item.click === false);
+        },
         toggleClick: (state, action) => {
             const listIndex = action.payload.index;
             const todoId = action.payload.id;
@@ -35,10 +39,9 @@ const userSlice = createSlice({
         removeList(state, action) {
             const index = action.payload;
             state.items.splice(index, 1);
-            console.log(state.items);
         }
     },
 })
-export const { addTodo, removeTodo, toggleClick, addList, removeList } = userSlice.actions;
+export const { addTodo, removeTodo, toggleClick, addList, removeList, blukRemoveTodo } = userSlice.actions;
 export default userSlice.reducer
 

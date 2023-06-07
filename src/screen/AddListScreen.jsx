@@ -5,21 +5,28 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { addList } from "../store/userSlice";
 
-export const AddListScreen = () => {
+export const AddListScreen = (props) => {
   const [listName, setListName] = useState("");
   const [listTodo, setListTodo] = useState();
 
   const navigation = useNavigation();
 
+  const listsIndex = useSelector((state) => state.user.items.length);
   const dispatch = useDispatch();
 
-  const onPress = () => {
+  const onPress = async () => {
     if (listTodo !== undefined) {
       dispatch(addList({ listName: listName, todos: [listTodo] }));
     } else {
       dispatch(addList({ listName: listName, todos: [] }));
     }
+
+    await new Promise((resolve) => setTimeout(resolve, 1));
+
+    navigation.navigate(listName + listsIndex);
   };
+
+  const rightTitle = listName === "" ? "閉じる" : "追加";
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,10 +40,12 @@ export const AddListScreen = () => {
       headerRight: () => (
         <Button
           onPress={() => {
-            onPress();
+            if (listName !== "") {
+              onPress();
+            }
             navigation.goBack();
           }}
-          title="追加"
+          title={rightTitle}
           color={"white"}
         />
       ),

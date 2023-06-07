@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,12 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-export const CostomeTab = ({ state, descriptors, navigation }) => {
+export const CostomeTab = ({ state, descriptors, navigation, activeIndex }) => {
   const navigate = useNavigation();
 
+  useEffect(() => {
+    activeIndex(state.index);
+  }, [state.index]);
   return (
     <View style={styles.tabBarContainer}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -33,24 +36,25 @@ export const CostomeTab = ({ state, descriptors, navigation }) => {
             borderBottomWidth: 2,
             borderBottomColor: isActive ? "#F2B705" : "white",
           };
-
-          return (
-            <TouchableOpacity
-              key={route.key}
-              onPress={() => navigation.navigate(route.name)}
-              style={tabStyle}
-            >
-              <Text
-                style={{
-                  paddingHorizontal: 10,
-                  color: isActive ? "#BF9075" : "black",
-                  fontSize: 14,
-                }}
+          if (displayLabel !== "nolist") {
+            return (
+              <TouchableOpacity
+                key={route.key}
+                onPress={() => navigation.navigate(route.name)}
+                style={tabStyle}
               >
-                {displayLabel}
-              </Text>
-            </TouchableOpacity>
-          );
+                <Text
+                  style={{
+                    paddingHorizontal: 10,
+                    color: isActive ? "#BF9075" : "black",
+                    fontSize: 14,
+                  }}
+                >
+                  {displayLabel}
+                </Text>
+              </TouchableOpacity>
+            );
+          }
         })}
 
         <TouchableOpacity

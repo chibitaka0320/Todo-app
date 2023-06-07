@@ -24,10 +24,9 @@ export const TodoList = ({ item, index }) => {
     <View style={styles.container}>
       <Feather style={styles.icon} name={iconName} size={25} onPress={check} />
       <View style={styles.text}>
-        <Text>{text}</Text>
-        <TouchableOpacity style={styles.button} onPress={remove}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>削除</Text>
-        </TouchableOpacity>
+        <Text style={click ? { textDecorationLine: "line-through" } : null}>
+          {text}
+        </Text>
       </View>
     </View>
   );
@@ -46,8 +45,6 @@ const styles = StyleSheet.create({
   text: {
     padding: 10,
     width: "90%",
-    borderBottomWidth: 0.5,
-    borderColor: "#8C8C88",
     flexDirection: "row",
     justifyContent: "space-between",
   },

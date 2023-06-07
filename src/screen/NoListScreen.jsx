@@ -1,10 +1,10 @@
-import { useReducer, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-export const SampleScreen = () => {
+export const NoListScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>サンプル画面</Text>
+      <Text>リストが存在しません。</Text>
     </View>
   );
 };

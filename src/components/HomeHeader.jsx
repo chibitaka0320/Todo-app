@@ -1,7 +1,8 @@
 import React from "react";
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { useNavigation } from "@react-navigation/native";
+import Feather from "react-native-vector-icons/Feather";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 
 export const HomeHeaderRight = () => {
   const navigation = useNavigation();
@@ -16,13 +17,18 @@ export const HomeHeaderRight = () => {
       >
         <AntDesign name="setting" size={25} style={{ color: "white" }} />
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("TabEdit")}
-        style={styles.icon}
-      >
-        <AntDesign name="ellipsis1" size={25} style={{ color: "white" }} />
-      </TouchableOpacity>
     </View>
+  );
+};
+
+export const HomeHeaderLeft = () => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+    >
+      <Feather name="menu" size={25} style={{ color: "white" }} />
+    </TouchableOpacity>
   );
 };
 
